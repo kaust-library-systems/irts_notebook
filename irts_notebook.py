@@ -75,8 +75,29 @@ def _(ET, content):
 
 @app.cell
 def _(metadata):
-    for datum in metadata:
-        print(datum)
+    for tag in metadata:
+        print(tag.tag, tag.attrib)
+    return
+
+
+@app.cell
+def _(metadata):
+    entry = metadata.find('{http://www.w3.org/2005/Atom}entry')
+    return (entry,)
+
+
+@app.cell
+def _(entry):
+    for ii in entry:
+        print(ii)
+    return
+
+
+@app.cell
+def _(entry):
+    id = entry.find('{http://www.w3.org/2005/Atom}id')
+    authors = entry.findall('{http://www.w3.org/2005/Atom}author')
+    print(f"We found {len(authors)} authors for {id.text}")
     return
 
 
